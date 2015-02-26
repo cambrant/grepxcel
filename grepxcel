@@ -26,21 +26,24 @@ class grepxcel():
             # The grep itself begins here.
             for row in book[sheet]:
                     for column in row:
-                        if grepstring in column:
-                            # Save the row number.
-                            rownum = book[sheet].array.index(row)
+                        if isinstance(column, str) or isinstance(column,
+                                unicode):
+                            if grepstring in column:
+                                # Output the result, based on the options set
+                                # by the user.
+                                if output_sheet_name:
+                                    print '%s:' % sheet_name,
 
-                            # Output the result, based on the options set by the user.
-                            if output_sheet_name:
-                                print '%s:' % sheet_name,
+                                if output_row_number:
+                                    print '%d:' % book[sheet].array.index(row),
 
-                            if output_row_number:
-                                print '%d:' % rownum,
-
-                            if separator:
-                                print separator.join(row)
-                            else:
-                                print ' '.join(row)
+                                result = ''
+                                for col in row:
+                                    try:
+                                        result += str(col) + separator
+                                    except:
+                                        pass
+                                print result
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
