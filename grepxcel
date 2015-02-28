@@ -59,12 +59,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    book_file = args.file
-    grepstring = args.pattern
-    separator = args.s
-    output_row_number = args.r
-    output_sheet_name = args.n
-
-    g = grepxcel(book_file, grepstring, separator, output_row_number,
-            output_sheet_name)
+    g = grepxcel(args.file, args.pattern, args.s, args.r, args.n)
     g.run()
